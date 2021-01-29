@@ -21,11 +21,21 @@ try{
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+'/public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());// json 형식의 데이터를 받는다.
+app.use(bodyParser.urlencoded({extended:true}));//urlencoded data를 extended 알고리즘으로 분석
+
 
 
 var sql = "CREATE TABLE book (name VARCHAR(20), email VARCHAR(55), phone VARCHAR(20))";
+try{
+  connection.query(sql,function(err,result){
+    console.log("Table created");
+  });//테이블 만들어주고
+}catch(err){
+  console.log("fucked up");
+}
+
+
 
 var port = 3000; // 사용할 포트 번호를 port 변수에 넣습니다.
 
@@ -39,10 +49,17 @@ app.get('/', function(req, res){
 });
 // Contacts - Index // 7
 app.get('/contacts', function(req, res){
+  var sql = "SELECT * FROM topic WHERE name=?";
+  var what = "DongIn";
+  connection.query(sql,what,fuction(err, contracts){
+    
+  });
+  /*이건 mongues에서 찾는거
   Contact.find({}, function(err, contacts){
     if(err) return res.json(err);
     res.render('contacts/index', {contacts:contacts});
-  });
+
+  });*/
 });
 // Contacts - New // 8
 app.get('/contacts/new', function(req, res){
