@@ -48,28 +48,39 @@ app.get('/', function(req, res){
   console.log("hey");
 });
 // Contacts - Index // 7
+
 app.get('/contacts', function(req, res){
-  var sql = "SELECT * FROM topic WHERE name=?";
-  var what = "DongIn";
-  connection.query(sql,what,fuction(err, contracts){
-    
+  var sql = 'SELECT * FROM people';
+  connection.query(sql,function(err,rows,fields) {
+    if(err){
+      console.log("can't!");
+      console.log(err);
+    }else{
+        res.render('contacts/index', {contacts:contacts});
+    }
   });
-  /*이건 mongues에서 찾는거
+  /*
   Contact.find({}, function(err, contacts){
     if(err) return res.json(err);
     res.render('contacts/index', {contacts:contacts});
-
-  });*/
+  });
+  */
 });
+
+
 // Contacts - New // 8
 app.get('/contacts/new', function(req, res){
   res.render('contacts/new');
-  console.log("hey");
 });
+
+
 // Contacts - create // 9
 app.post('/contacts', function(req, res){
-  Contact.create(req.body, function(err, contact){
-    if(err) return res.json(err);
+  connection.create(req.body, function(err, contact){
+    if(err){
+      console.log("ha...");
+      return res.json(err);
+    }
     res.redirect('/contacts');
   });
 });
