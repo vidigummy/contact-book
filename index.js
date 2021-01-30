@@ -54,9 +54,13 @@ app.get('/contacts', function(req, res){
   connection.query(sql,function(err,rows,fields) {
     if(err){
       console.log("can't!");
-      console.log(err);
     }else{
-        res.render('contacts/index', {contacts:contacts});
+        var a = rows.length;
+        console.log(a);
+        rows.forEach((item,i) =>{
+          console.log(item.pn);
+        });
+      //  res.render('contacts/index', {rows:rows});
     }
   });
   /*
