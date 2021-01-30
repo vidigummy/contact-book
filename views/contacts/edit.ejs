@@ -10,7 +10,7 @@
 
     <div class="contact contact-edit">
       <h2>Edit</h2>
-      <form class="contact-form" action="/contacts/<%= rows[0].name %>/edit" method="post">
+      <form class="contact-form" action="/contacts/<%= rows[0].name %>?_method=put" method="post">
         <div>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" value="<%= rows[0].name %>">

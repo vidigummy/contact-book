@@ -2,6 +2,9 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+
 
 var connection = mysql.createConnection({
   host : 'localhost',
@@ -23,7 +26,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.json());// json 형식의 데이터를 받는다.
 app.use(bodyParser.urlencoded({extended:true}));//urlencoded data를 extended 알고리즘으로 분석
-
+app.use(methodOverride('_method'));
 
 
 var sql = "CREATE TABLE book (name VARCHAR(20), email VARCHAR(55), phone VARCHAR(20))";
@@ -45,7 +48,6 @@ app.listen(port, function(){ // port변수를 이용하여 3000번 포트에 nod
 
 app.get('/', function(req, res){
   res.redirect('/contacts');
-  console.log("hey");
 });
 // Contacts - Index // 7
 
@@ -86,11 +88,8 @@ app.get('/contacts/:name/edit', function(req, res){
   });
 });
 
-app.post('/constacts/:name/edit', function(req, res){
-  var name = req.params.name;
-  var params = [req.body.name, req.body.email, req.body.phone];
-  console.log(name);
-  console.log(params);
+app.put('/constacts/:name', function(req, res){
+
 });
 
 
