@@ -68,13 +68,30 @@ app.get('/contacts/:name', function(req, res){
     if(err){
       console.log("fuck you");
     }else{
-        console.log(name.name);
-        console.log(rows[0].name);
         res.render('contacts/show', {rows:rows});
     }
   });
 });
 
+app.get('/contacts/:name/edit', function(req, res){
+  var name = req.params;
+  var sql = "SELECT * FROM book WHERE name = ?";
+  var params = [name.name];
+  connection.query(sql,params,function(err,rows,fields) {
+    if(err){
+      console.log("fuck you");
+    }else{
+        res.render('contacts/edit', {rows:rows});
+    }
+  });
+});
+
+app.post('/constacts/:name/edit', function(req, res){
+  var name = req.params.name;
+  var params = [req.body.name, req.body.email, req.body.phone];
+  console.log(name);
+  console.log(params);
+});
 
 
 // Contacts - New // 8

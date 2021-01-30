@@ -1,0 +1,32 @@
+<!-- views/contacts/edit.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <%- include('../partials/nav') %>
+
+    <div class="contact contact-edit">
+      <h2>Edit</h2>
+      <form class="contact-form" action="/contacts/<%= rows[0].name %>/edit" method="post">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" value="<%= rows[0].name %>">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" value="<%= rows[0].email %>">
+        </div>
+        <div>
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" value="<%= rows[0].phone %>">
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
