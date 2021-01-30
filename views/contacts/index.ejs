@@ -14,7 +14,7 @@
         <% var len = rows.length; %>
         <% for(var i =0; i < len; i++){ %>
         <li>
-          <%= rows[i].name %> <%= rows[i].phone %> <%= rows[i].email %>
+          <a href="/contacts/<%= rows[i].name%>"><%= rows[i].name %></a>
         </li>
         <% }; %>
       </ul>

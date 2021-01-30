@@ -60,6 +60,22 @@ app.get('/contacts', function(req, res){
   });
 });
 
+app.get('/contacts/:name', function(req, res){
+  var name = req.params;
+  var sql = "SELECT * FROM book WHERE name = ?";
+  var params = [name.name];
+  connection.query(sql,params,function(err,rows,fields) {
+    if(err){
+      console.log("fuck you");
+    }else{
+        console.log(name.name);
+        console.log(rows[0].name);
+        res.render('contacts/show', {rows:rows});
+    }
+  });
+});
+
+
 
 // Contacts - New // 8
 app.get('/contacts/new', function(req, res){
