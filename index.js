@@ -50,7 +50,7 @@ app.get('/', function(req, res){
 // Contacts - Index // 7
 
 app.get('/contacts', function(req, res){
-  var sql = 'SELECT * FROM book';
+  var sql = 'SELECT DISTINCT name, phone, email FROM book';
   connection.query(sql,function(err,rows,fields) {
     if(err){
       console.log("can't!");
@@ -69,11 +69,8 @@ app.get('/contacts/new', function(req, res){
 
 // Contacts - create // 9
 app.post('/contacts', function(req, res){
-  var name_summit = req.body.name;
-  var email_summit = req.body.email;
-  var phone_summit = req.body.phone;
   var sql = "INSERT INTO book (name, email, phone) VALUES(?, ?, ?)";
-  var params = [name_summit, email_summit, phone_summit];
+  var params = [req.body.name, req.body.email, req.body.phone];
   connection.query(sql, params, function(err, rows, fields){
   	if(err){
   		console.log(err);
