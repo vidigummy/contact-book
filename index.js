@@ -50,25 +50,14 @@ app.get('/', function(req, res){
 // Contacts - Index // 7
 
 app.get('/contacts', function(req, res){
-  var sql = 'SELECT * FROM people';
+  var sql = 'SELECT * FROM book';
   connection.query(sql,function(err,rows,fields) {
     if(err){
       console.log("can't!");
     }else{
-        var a = rows.length;
-        console.log(a);
-        rows.forEach((item,i) =>{
-          console.log(item.pn);
-        });
-      //  res.render('contacts/index', {rows:rows});
+        res.render('contacts/index', {rows:rows});
     }
   });
-  /*
-  Contact.find({}, function(err, contacts){
-    if(err) return res.json(err);
-    res.render('contacts/index', {contacts:contacts});
-  });
-  */
 });
 
 
@@ -80,34 +69,16 @@ app.get('/contacts/new', function(req, res){
 
 // Contacts - create // 9
 app.post('/contacts', function(req, res){
-  connection.create(req.body, function(err, contact){
-    if(err){
-      console.log("ha...");
-      return res.json(err);
-    }
-    res.redirect('/contacts');
+  var name_summit = req.body.name;
+  var email_summit = req.body.email;
+  var phone_summit = req.body.phone;
+  var sql = "INSERT INTO book (name, email, phone) VALUES(?, ?, ?)";
+  var params = [name_summit, email_summit, phone_summit];
+  connection.query(sql, params, function(err, rows, fields){
+  	if(err){
+  		console.log(err);
+  	} else {
+  		res.redirect('contacts');
+  	}
   });
 });
-
-/*
-//테이블 조회하는 쿼리
-var sql = 'SELECT * FROM people';
-connection.query(sql,function(err,rows,fields) {
-  if(err){
-    console.log("can't!");
-    console.log(err);
-  }else{
-    console.log(rows[0]);
-  }
-});
-//값 집어넣는 쿼리
-var sql = 'INSERT INTO people (name, pn) VALUES(?, ?)';
-var params = ["SooIn", "01020196935"];
-connection.query(sql, params, function(err, rows, fields){
-	if(err){
-		console.log(err);
-	} else {
-		console.log(rows.insertId);
-	}
-});
-*/

@@ -10,9 +10,14 @@
     <%- include('../partials/nav') %> <!-- 2 -->
     <div class="contact contact-index">
       <h2>Index</h2>
-        <% for(var i =0; i < 10; i++) =>{ %>
-          <h1><%= i %></h1>
-        <% }); %>
+      <ul>
+        <% var len = rows.length; %>
+        <% for(var i =0; i < len; i++){ %>
+        <li>
+          <h1><%= rows[i].name %> <%= rows[i].phone %> <%= rows[i].email %> </h1>
+        </li>
+        <% }; %>
+      </ul>
     </div>
   </body>
 </html>
